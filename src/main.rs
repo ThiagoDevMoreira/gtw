@@ -4,11 +4,13 @@ mod geradorDeToken;
 mod login;
 
 use dioxus::prelude::*;
-use layoutController::*;
-use login::core::initialize_session;
+use layoutController::TelaFuncionalidadesPrincipais;
+use login::core::*;
 
 fn main() {
     initialize_session();
+    let session = get_session();
+    session.set("status", "0");
     launch(App);
 }
 
@@ -19,7 +21,9 @@ fn App() -> Element {
         header{
             h1{"Gerador de token para whatsapp"}}
         main{
-            div{{TelaFuncionalidadesPrincipais()}}
+            div{
+                TelaFuncionalidadesPrincipais{}
+            }
         }
         footer{"v.0.0.3 - 24-11-24"}
     }
