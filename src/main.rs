@@ -1,23 +1,26 @@
-#![allow(non_snake_case)]
-mod components;
+#![allow(non_snake_case, unused)]
+mod layoutController;
+mod geradorDeToken;
+mod login;
 
 use dioxus::prelude::*;
-use dioxus_logger::tracing::{info, Level};
-use components::auth::login::Login;
+use layoutController::*;
+use login::core::initialize_session;
 
 fn main() {
-    // Init logger
-    dioxus_logger::init(Level::INFO).expect("failed to init logger");
-    info!("starting app");
-
-    let cfg = dioxus::desktop::Config::new()
-        .with_custom_head(r#"<link rel="stylesheet" href="./src/output.css">"#.to_string());
-    LaunchBuilder::desktop().with_cfg(cfg).launch(App);
+    initialize_session();
+    launch(App);
 }
 
 #[component]
+//tela inicial da aplicação.
 fn App() -> Element {
     rsx! {
-        Login {}
+        header{
+            h1{"Gerador de token para whatsapp"}}
+        main{
+            div{{TelaFuncionalidadesPrincipais()}}
+        }
+        footer{"v.0.0.3 - 24-11-24"}
     }
 }
